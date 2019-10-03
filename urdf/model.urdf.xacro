@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="mcubot">
+	<xacro:include filename="$(find mcubot)/urdf/properties.xacro"/>
+	<xacro:include filename="$(find mcubot)/urdf/model.gazebo.xacro"/>
+	
+	<xacro:property name="base_link_x" value="0" />
+	<xacro:property name="base_link_y" value="0" />
+	<xacro:property name="base_link_z" value="0" />				<!--TODO Location needs to be adjusted-->
+	<xacro:property name="base_to_wheel_x" value="0.0975" />
+	<xacro:property name="base_to_wheel_y" value="0.075" />
+	<xacro:property name="base_to_wheel_z" value="-0.01" />
+	<xacro:property name="base_to_lds_y" value="0.1" />
+	<xacro:property name="base_to_lds_z" value="0.13" />
+	
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="${base_link_x} ${base_link_y} ${base_link_z}"/>
+      <material name="grey"/>
+      <geometry>
+        <mesh filename="package://mcubot/meshes/base.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="${base_link_x} ${base_link_y} ${base_link_z+0.045}"/>
+      <geometry>
+        <box size="0.25 0.32 0.14"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.00002" ixy="0.0" ixz="0.0"
+               iyy="0.000011" iyz="0.0"
+               izz="0.000025" />
+    </inertial>
+  </link>
+  
+  <!--Front Left Wheel-->
+  <link name="front_left_wheel">
+		<visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white"/>
+      <geometry>
+        <mesh filename="package://mcubot/meshes/wheel.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <cylinder length="0.015" radius="0.046"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="base_to_front_left_wheel" type="continuous">
+  	<origin rpy="0 0 0" xyz="${base_to_wheel_x} ${base_to_wheel_y} ${base_to_wheel_z}"/>				
+  	<axis xyz="1 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+  </joint>
+
+  <!--Front Right Wheel-->
+  <link name="front_right_wheel">
+		<visual>
+      <origin rpy="0 0 3.1415" xyz="0 0 0"/>
+      <material name="white"/>
+      <geometry>
+        <mesh filename="package://mcubot/meshes/wheel.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.01 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <cylinder length="0.015" radius="0.046"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="base_to_front_right_wheel" type="continuous">
+  	<origin rpy="0 0 0" xyz="-${base_to_wheel_x} ${base_to_wheel_y} ${base_to_wheel_z}"/>				
+  	<axis xyz="1 0 0"/>
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+  </joint> 
+
+  <!--Back Left Wheel-->
+  <link name="back_left_wheel">
+		<visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <material name="white"/>
+      <geometry>
+        <mesh filename="package://mcubot/meshes/wheel.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <cylinder length="0.015" radius="0.046"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="base_to_back_left_wheel" type="continuous">
+  	<origin rpy="0 0 0" xyz="${base_to_wheel_x} -${base_to_wheel_y} ${base_to_wheel_z}"/>				
+  	<axis xyz="1 0 0"/>
+    <parent link="base_link"/>
+    <child link="back_left_wheel"/>
+  </joint>
+
+  <!--Back Right Wheel-->
+  <link name="back_right_wheel">
+		<visual>
+      <origin rpy="0 0 3.1415" xyz="0 0 0"/>
+      <material name="white"/>
+      <geometry>
+        <mesh filename="package://mcubot/meshes/wheel.stl" scale="1 1 1"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="-0.01 0 0" rpy="0 1.57 0"/>
+      <geometry>
+        <cylinder length="0.015" radius="0.046"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+
+  <joint name="base_to_back_right_wheel" type="continuous">
+  	<origin rpy="0 0 0" xyz="-${base_to_wheel_x} -${base_to_wheel_y} ${base_to_wheel_z}"/>				
+  	<axis xyz="1 0 0"/>
+    <parent link="base_link"/>
+    <child link="back_right_wheel"/>
+  </joint>
+
+	<!--Lidar Sensor-->
+  <link name="base_scan">
+    <visual>
+      <origin xyz="0 0 0.0" rpy="0 0 1.57"/>
+      <material name="black"/>
+      <geometry>
+        <mesh filename="package://mcubot/meshes/lds.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="dark"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 1.57"/>
+      <geometry>
+        <cylinder length="0.0315" radius="0.055"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.114" />
+      <origin xyz="0 0 0" />
+      <inertia ixx="0.001" ixy="0.0" ixz="0.0"
+               iyy="0.001" iyz="0.0"
+               izz="0.001" />
+    </inertial>
+  </link>
+  
+  <joint name="scan_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_scan"/>
+    <origin xyz="0 ${base_to_lds_y} ${base_to_lds_z}" rpy="0 0 0"/>
+  </joint>
+
+</robot>
+

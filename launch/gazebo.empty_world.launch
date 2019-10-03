@@ -1,0 +1,26 @@
+<launch>
+  <arg name="model" default="$(find mcubot)/urdf/model.urdf.xacro"/>
+  <arg name="rvizconfig" default="$(find mcubot)/rviz/urdf.rviz" />
+
+  <include file="$(find mcubot)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" />
+
+  <rosparam command="load"
+            file="$(find mcubot)/config/joints.yaml"
+            ns="mcubot_joint_state_controller" />
+  <rosparam command="load"
+            file="$(find mcubot)/config/diffdrive.yaml"
+            ns="mcubot_diff_drive_controller" />
+
+  <node name="mcubot_controller_spawner" pkg="controller_manager" type="spawner"
+    args="mcubot_joint_state_controller
+          mcubot_diff_drive_controller
+          --shutdown-timeout 3"/>
+
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+    <param name="default_topic" value="/mcubot_diff_drive_controller/cmd_vel"/>
+  </node>
+</launch>
