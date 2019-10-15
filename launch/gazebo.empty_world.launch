@@ -20,7 +20,7 @@
           mcubot_diff_drive_controller
           --shutdown-timeout 3"/>
 
-  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
+  <!--node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering">
     <param name="default_topic" value="/mcubot_diff_drive_controller/cmd_vel"/>
-  </node>
+  </node-->
 </launch>

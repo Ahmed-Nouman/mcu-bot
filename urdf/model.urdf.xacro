@@ -9,6 +9,7 @@
 	<xacro:property name="base_to_wheel_x" value="0.0975" />
 	<xacro:property name="base_to_wheel_y" value="0.075" />
 	<xacro:property name="base_to_wheel_z" value="-0.01" />
+	<xacro:property name="base_to_lds_yx" value="0.0" />
 	<xacro:property name="base_to_lds_y" value="0.1" />
 	<xacro:property name="base_to_lds_z" value="0.13" />
 	
