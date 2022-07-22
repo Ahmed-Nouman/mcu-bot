@@ -11,5 +11,5 @@ Mir Usama ul Haq
 
 Under Supervision and Guidance of Professor Ahmed Nouman.
 
-Department of Mechatronics Engineering
+Department of Mechatronics Engineering  
 University of Engineering & Technology, Taxila.
