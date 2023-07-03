@@ -1,8 +1,8 @@
 # MCUBot
 
-This Repository contains ROS packages for an Autonomous Mobile Robot.
+This Repository contains ROS Packages for an Autonomous Mobile Robot.
 
-FYP by students of Batch 2016.
+FYP by the Students of Batch UETT-MCT-2016.
 
 Muhammad Ans Akhtar  
 Muhammad Shoaib  
